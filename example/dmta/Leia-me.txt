@@ -1,0 +1,11 @@
+Execute o Makefile para compilar o código.
+
+Para executar o algoritmo digite a linha abaixo, por exemplo:
+mpirun -np 4 -hostfile ips.txt dmta.o data/entrada.txt 1 0.2
+
+Onde:
+- 4 é o numero de processos
+- ips.txt é o arquivo com os ips dos computadores que já devem ter todas as bibliotecas e conexão SSH liberada
+- data/entrada.txt é o caminho do arquivo, também deve estar em todos os computadores
+- 1 é o número de threads
+- 0.2 é o suporte mínimo (20%)
