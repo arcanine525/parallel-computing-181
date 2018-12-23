@@ -1,29 +1,18 @@
-/**
- * C program to count number of characters, words and lines in a text file.
- */
-
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
+#include <time.h>
 int main()
 {
+    clock_t begin = clock();
+    char alphabets[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
     FILE *file;
     //char path[100];
 
     char ch, letter[1], path;
-    int characters, words, lines;
-
-    /* Input path of files to merge to third file */
-    // printf("Enter source file path: ");
-    // scanf("%s", path);
-
-    printf("Enter letter to count ");
-    scanf("%c", letter);
-
-    /* Open source files in 'r' mode */
+    int lines = 0;
 
     file = fopen("data.txt", "r");
-    //letter = 'b';
     /* Check if file opened successfully */
     if (file == NULL)
     {
@@ -33,45 +22,51 @@ int main()
         exit(EXIT_FAILURE);
     }
 
-    /*
-     * Logic to count characters, words and lines.
-     */
-    characters = words = lines = 0;
-    while ((ch = fgetc(file)) != EOF)
+    int count[strlen(alphabets)];
+    for (int i = 0; i < strlen(alphabets); i++)
     {
-        characters++;
+        count[i] = 0;
+    }
 
-        /* Check new line */
-        if (ch == '\n' || ch == '\0')
-            lines++;
+    // while ((ch = fgetc(file)) != EOF)
+    // {
 
-        /* Check words */
-        // if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0')
-        //     words++;
-        //Count A
+    //     for (int i = 0; i < strlen(alphabets); i++)
+    //     {
+    //         /* Check new line */
+    //         if (ch == '\n')
+    //             lines++;
+    //         if (ch == alphabets[i])
+    //             count[i]++;
+    //     }
+    // }
+    char c;
+    for (c = getc(file); c != EOF; c = getc(file))
+    {
+        if (c == '\n') // Increment count if this character is newline
+            lines = lines + 1;
 
-        if (ch == letter[0])
+        for (int i = 0; i < strlen(alphabets); i++)
         {
-            words++;
+            if (c == alphabets[i])
+                count[i]++;
         }
-    }
+       }
 
-    /* Increment words and lines for last word */
-    if (characters > 0)
+    for (int i = 0; i < strlen(alphabets); i++)
     {
-        words++;
-        lines++;
+        /* Print file statistics */
+        printf("\n");
+        printf("Total count for = %c\n", alphabets[i]);
+        printf("Total count for = %d\n", count[i]);
     }
-
-    /* Print file statistics */
-    printf("\n");
-    printf("Total characters = %d\n", characters);
-    printf("Total count for = %c\n", letter[0]);
-    printf("Total words      = %d\n", words);
-    printf("Total lines      = %d\n", lines);
-
     /* Close files to release resources */
+
     fclose(file);
+    printf("Total lines = %d\n", lines);
+    clock_t end = clock();
+	double runtime = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("Runtime: %lfs\n", runtime / 1000);
 
     return 0;
 }
