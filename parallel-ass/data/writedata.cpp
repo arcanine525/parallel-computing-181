@@ -41,7 +41,7 @@ int main()
 
 
 	
-	for (fuckin_large row = 0; row < 200000; row++)
+	for (fuckin_large row = 0; row < 10000; row++)
 	{
 		// int duplicate[26];
 		// for(int i=0;i<26;i++){
@@ -74,7 +74,7 @@ int main()
 				break;
 			}
 			else{
-				myfile << alphabets[subset[i]] << " ";	
+				myfile << subset[i] << " ";	
 			}
 		}
 
