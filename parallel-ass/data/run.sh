@@ -2,10 +2,10 @@
 echo "This is a shell script to write data"  
 rm -rf data.txt
 echo "delete data sample"
-g++ -o file writedata.cpp 
+g++ -std=c++11 writedata.cpp -o write
 echo "Run program"  
-./file
+./write
 
 echo "Done..."
-rm -rf file
+rm -rf write
 echo "Deleted unsed file"
