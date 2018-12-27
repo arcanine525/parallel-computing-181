@@ -1,10 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "transaction.h"
 #include "apriori.h"
 
 int main(int argc, char *argv[]) {
-
+clock_t begin = clock();
   if (argc != 3) {
     printf("Usage: ./apriori <threshold> <num transactions>\n");
     return EXIT_FAILURE;
@@ -52,6 +53,8 @@ int main(int argc, char *argv[]) {
 
     o_table = new_occurr_table;
   }
-
+  clock_t end = clock();
+	double runtime = (double)(end - begin) / CLOCKS_PER_SEC;
+	printf("Runtime: %lfs\n", runtime / 1000);
   return EXIT_SUCCESS;
 }

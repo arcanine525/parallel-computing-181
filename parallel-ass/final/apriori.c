@@ -1,12 +1,17 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <omp.h>
 #include "apriori.h"
 #include "transaction.h"
 
+OMP_NUM_THREADS = 2;
+int threads = 20;
 
 void fill_occurrence_table(struct occurr_table *o_table, struct trans_list t_list) {
+omp_set_dynamic(0);     // Explicitly disable dynamic teams
+omp_set_num_threads(1); // Use 4 threads for all consecutive parallel regions
 #pragma omp parallel
+
   for (int i = 0; i < t_list.t_size; ++i) {
     struct trans_entry t_entry = t_list.t_entry[i];
     for (int j = 0; j < o_table->length; ++j) {
@@ -53,6 +58,7 @@ int next_round(struct occurr_table *o_table, struct occurr_table *new_occurr_tab
   int new_length = 0;
 
 #pragma omp parallel
+threads = omp_get_num_threads();
   for (int i = 0; i < o_table->length; ++i) {
     int i_support = o_table->occurr[i].support;
     if (i_support < threshold) {
